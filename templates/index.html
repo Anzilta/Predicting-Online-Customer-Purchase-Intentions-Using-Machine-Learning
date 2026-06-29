@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Purchase Prediction</title>
+
+    <link rel ="stylesheet" href="/static/style.css">
+
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🛒 Customer Purchase Prediction</h1>
+
+    <p>Enter customer browsing details to predict whether the customer will make a purchase.</p>
+
+    <form action="/predict" method="POST">
+
+        <div class="grid">
+
+            <div>
+                <label>Administrative</label>
+                <input type="number" step="any" name="Administrative" required>
+            </div>
+
+            <div>
+                <label>Administrative Duration</label>
+                <input type="number" step="any" name="Administrative_Duration" required>
+            </div>
+
+            <div>
+                <label>Informational</label>
+                <input type="number" step="any" name="Informational" required>
+            </div>
+
+            <div>
+                <label>Informational Duration</label>
+                <input type="number" step="any" name="Informational_Duration" required>
+            </div>
+
+            <div>
+                <label>Product Related</label>
+                <input type="number" step="any" name="ProductRelated" required>
+            </div>
+
+            <div>
+                <label>Product Related Duration</label>
+                <input type="number" step="any" name="ProductRelated_Duration" required>
+            </div>
+
+            <div>
+                <label>Bounce Rates</label>
+                <input type="number" step="any" name="BounceRates" required>
+            </div>
+
+            <div>
+                <label>Exit Rates</label>
+                <input type="number" step="any" name="ExitRates" required>
+            </div>
+
+            <div>
+                <label>Page Values</label>
+                <input type="number" step="any" name="PageValues" required>
+            </div>
+
+            <div>
+                <label>Special Day</label>
+                <input type="number" step="any" name="SpecialDay" required>
+            </div>
+
+            <div>
+                <label>Month (Encoded)</label>
+                <input type="number" name="Month" required>
+            </div>
+
+            <div>
+                <label>Operating Systems</label>
+                <input type="number" name="OperatingSystems" required>
+            </div>
+
+            <div>
+                <label>Browser</label>
+                <input type="number" name="Browser" required>
+            </div>
+
+            <div>
+                <label>Region</label>
+                <input type="number" name="Region" required>
+            </div>
+
+            <div>
+                <label>Traffic Type</label>
+                <input type="number" name="TrafficType" required>
+            </div>
+
+            <div>
+                <label>Visitor Type</label>
+                <input type="number" name="VisitorType" required>
+            </div>
+
+            <div>
+                <label>Weekend (0 = No, 1 = Yes)</label>
+                <input type="number" min="0" max="1" name="Weekend" required>
+            </div>
+
+        </div>
+
+        <button type="submit">Predict Purchase</button>
+
+    </form>
+
+    {% if prediction %}
+
+    <div class="result">
+
+        {{ prediction }}
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+
+</html>
