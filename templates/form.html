@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict Purchase | ShopSense</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        .form-page {
+            max-width: 1050px;
+            margin: 35px auto 80px;
+            padding: 0 25px;
+        }
+
+        .form-heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .form-heading .tag {
+            margin-bottom: 16px;
+        }
+
+        .form-heading h1 {
+            font-size: clamp(30px, 5vw, 43px);
+            letter-spacing: -1.5px;
+            margin-bottom: 12px;
+        }
+
+        .form-heading h1 span {
+            color: #a78bfa;
+        }
+
+        .form-heading p {
+            color: #aaa8c2;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .prediction-form {
+            background: linear-gradient(145deg, #19182c, #11111f);
+            border: 1px solid #34304a;
+            border-radius: 22px;
+            padding: 35px;
+            box-shadow: 0 25px 70px #00000025;
+        }
+
+        .form-section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 8px 0 23px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #302c43;
+        }
+
+        .section-icon {
+            display: grid;
+            place-items: center;
+            width: 42px;
+            height: 42px;
+            background: #9b7bff20;
+            border-radius: 12px;
+            font-size: 20px;
+        }
+
+        .form-section-title h2 {
+            font-size: 16px;
+        }
+
+        .form-section-title p {
+            color: #aaa8c2;
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+            margin-bottom: 35px;
+        }
+
+        .form-field label {
+            display: block;
+            color: #d9d5ed;
+            font-size: 11px;
+            margin-bottom: 9px;
+            font-weight: 500;
+        }
+
+        .form-field input,
+        .form-field select {
+            width: 100%;
+            min-width: 0;
+            padding: 13px 14px;
+            border: 1px solid #39354e;
+            border-radius: 10px;
+            background: #10101e;
+            color: #f7f5ff;
+            font-family: inherit;
+            font-size: 12px;
+            outline: none;
+            transition: border-color 0.25s, box-shadow 0.25s;
+        }
+
+        .form-field input:focus,
+        .form-field select:focus {
+            border-color: #a78bfa;
+            box-shadow: 0 0 0 3px #a78bfa18;
+        }
+
+        .form-field input::placeholder {
+            color: #68657e;
+        }
+
+        .form-field select option {
+            background: #171627;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 18px;
+            padding-top: 25px;
+            border-top: 1px solid #302c43;
+        }
+
+        .form-note {
+            color: #aaa8c2;
+            font-size: 11px;
+            line-height: 1.8;
+        }
+
+        .form-submit {
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #b9a5ff;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 18px;
+            border-radius: 12px;
+            background: #9b7bff15;
+            border: 1px solid #9b7bff55;
+            text-align: center;
+            color: #e8ddff;
+            font-size: 14px;
+        }
+
+        @media (max-width: 750px) {
+            .form-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .prediction-form {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 17px;
+            }
+
+            .prediction-form {
+                padding: 20px 16px;
+            }
+
+            .form-actions {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .form-submit {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <a href="/" class="logo">Purchase<span>Pulse</span></a>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/#features">Features</a>
+        <a href="/#about">About</a>
+    </div>
+
+    <a href="/" class="nav-button">← Home</a>
+</nav>
+
+<main class="form-page">
+
+    <a href="/" class="back-link">← Back to Home</a>
+
+    <div class="form-heading">
+        <div class="tag">
+            <span class="status-dot"></span>
+            AI-POWERED CUSTOMER ANALYSIS
+        </div>
+
+        <h1>Predict Customer <span>Purchase.</span></h1>
+
+        <p>
+            Enter the customer's browsing session details below.<br>
+            Your machine learning model will predict the purchase outcome.
+        </p>
+    </div>
+
+    <form class="prediction-form" action="/predict" method="POST">
+
+        <div class="form-section-title">
+            <div class="section-icon">📊</div>
+            <div>
+                <h2>Browsing Activity</h2>
+                <p>Customer page visits and time spent browsing</p>
+            </div>
+        </div>
+
+        <div class="form-grid">
+
+            <div class="form-field">
+                <label>Administrative Pages</label>
+                <input type="number" min="0" step="1"
+                       name="Administrative" placeholder="e.g. 2" required>
+            </div>
+
+            <div class="form-field">
+                <label>Administrative Duration</label>
+                <input type="number" min="0" step="any"
+                       name="Administrative_Duration" placeholder="Seconds" required>
+            </div>
+
+            <div class="form-field">
+                <label>Informational Pages</label>
+                <input type="number" min="0" step="1"
+                       name="Informational" placeholder="e.g. 1" required>
+            </div>
+
+            <div class="form-field">
+                <label>Informational Duration</label>
+                <input type="number" min="0" step="any"
+                       name="Informational_Duration" placeholder="Seconds" required>
+            </div>
+
+            <div class="form-field">
+                <label>Product Related Pages</label>
+                <input type="number" min="0" step="1"
+                       name="ProductRelated" placeholder="e.g. 10" required>
+            </div>
+
+            <div class="form-field">
+                <label>Product Related Duration</label>
+                <input type="number" min="0" step="any"
+                       name="ProductRelated_Duration" placeholder="Seconds" required>
+            </div>
+
+        </div>
+
+        <div class="form-section-title">
+            <div class="section-icon">📈</div>
+            <div>
+                <h2>Session Metrics</h2>
+                <p>Engagement, bounce rates and page values</p>
+            </div>
+        </div>
+
+        <div class="form-grid">
+
+            <div class="form-field">
+                <label>Bounce Rate</label>
+                <input type="number" min="0" max="1" step="any"
+                       name="BounceRates" placeholder="0 to 1" required>
+            </div>
+
+            <div class="form-field">
+                <label>Exit Rate</label>
+                <input type="number" min="0" max="1" step="any"
+                       name="ExitRates" placeholder="0 to 1" required>
+            </div>
+
+            <div class="form-field">
+                <label>Page Values</label>
+                <input type="number" min="0" step="any"
+                       name="PageValues" placeholder="e.g. 15.5" required>
+            </div>
+
+            <div class="form-field">
+                <label>Special Day</label>
+                <input type="number" min="0" max="1" step="any"
+                       name="SpecialDay" placeholder="0 to 1" required>
+            </div>
+
+            <div class="form-field">
+                <label>Weekend</label>
+                <select name="Weekend" required>
+                    <option value="" disabled selected>Select option</option>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="form-section-title">
+            <div class="section-icon">🌐</div>
+            <div>
+                <h2>Visitor & Technical Details</h2>
+                <p>Traffic source, visitor type and browser information</p>
+            </div>
+        </div>
+
+        <div class="form-grid">
+
+            <div class="form-field">
+                <label>Month (Encoded)</label>
+                <input type="number" name="Month" step="1"
+                       placeholder="Use model's encoding" required>
+            </div>
+
+            <div class="form-field">
+                <label>Operating Systems</label>
+                <input type="number" min="1" step="1"
+                       name="OperatingSystems" placeholder="OS code" required>
+            </div>
+
+            <div class="form-field">
+                <label>Browser</label>
+                <input type="number" min="1" step="1"
+                       name="Browser" placeholder="Browser code" required>
+            </div>
+
+            <div class="form-field">
+                <label>Region</label>
+                <input type="number" min="1" step="1"
+                       name="Region" placeholder="Region code" required>
+            </div>
+
+            <div class="form-field">
+                <label>Traffic Type</label>
+                <input type="number" min="1" step="1"
+                       name="TrafficType" placeholder="Traffic code" required>
+            </div>
+
+            <div class="form-field">
+                <label>Visitor Type (Encoded)</label>
+                <input type="number" min="0" step="1"
+                       name="VisitorType" placeholder="Use model's encoding" required>
+            </div>
+
+        </div>
+
+        <div class="form-actions">
+            <p class="form-note">
+                🔒 Your inputs are used to generate a model prediction.<br>
+                Results depend on your trained machine learning model.
+            </p>
+
+            <button type="submit" class="primary-button form-submit">
+                Predict Purchase <span>→</span>
+            </button>
+        </div>
+
+        {% if prediction %}
+        <div class="result" role="status">
+            {{ prediction }}
+        </div>
+        {% endif %}
+
+    </form>
+</main>
+
+<footer>
+    <a href="/" class="logo">Purchase<span>Pulse</span></a>
+    <p>Customer Purchase Prediction · Machine Learning Project</p>
+    <p>Developed by Anzil T A</p>
+</footer>
+
+</body>
+</html>

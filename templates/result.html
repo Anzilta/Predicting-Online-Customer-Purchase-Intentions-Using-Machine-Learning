@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result | PurchasePulse</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #0b1020;
+            color: #f8fafc;
+            display: flex;
+            flex-direction: column;
+        }
+
+        nav {
+            padding: 22px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #252b42;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #a78bfa;
+            text-decoration: none;
+        }
+
+        nav a {
+            color: #e2e8f0;
+            text-decoration: none;
+        }
+
+        .result-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .result-card {
+            width: 100%;
+            max-width: 620px;
+            padding: 45px 30px;
+            text-align: center;
+            border: 1px solid #353052;
+            border-radius: 24px;
+            background: linear-gradient(145deg, #171b32, #111528);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .result-icon {
+            width: 85px;
+            height: 85px;
+            margin: 0 auto 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #2b2250;
+            color: #c4b5fd;
+            font-size: 40px;
+        }
+
+        .result-card h1 {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .result-card p {
+            color: #aab3ca;
+            line-height: 1.7;
+        }
+
+        .prediction {
+            margin: 28px 0;
+            padding: 22px;
+            border-radius: 14px;
+            background: #211c3c;
+            border: 1px solid #51417f;
+        }
+
+        .prediction-label {
+            color: #c4b5fd;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .prediction-value {
+            margin-top: 12px;
+            font-size: 27px;
+            font-weight: bold;
+            color: #ddd6fe;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 28px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 22px;
+            border-radius: 10px;
+            background: #8b5cf6;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid #51417f;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #8791aa;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="/" class="logo">PurchasePulse.</a>
+        <a href="/">Home</a>
+    </nav>
+
+    <main class="result-container">
+        <section class="result-card">
+            <div class="result-icon">✦</div>
+
+            <h1>Prediction Complete!</h1>
+            <p>
+                Your customer session has been analyzed by our
+                Machine Learning model.
+            </p>
+
+            <div class="prediction">
+                <div class="prediction-label">Predicted Result</div>
+                <div class="prediction-value">
+                    {{ prediction }}
+                </div>
+            </div>
+
+            <p>
+                This prediction can help understand customer purchase
+                behavior and support better business decisions.
+            </p>
+
+            <div class="actions">
+                <a href="/form" class="btn">Predict Again</a>
+                <a href="/" class="btn btn-secondary">Back to Home</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        © 2026 PurchasePulse | E-commerce Purchase Prediction
+    </footer>
+</body>
+</html>

@@ -14,6 +14,10 @@ scaler = joblib.load(open("scaler.pkl", "rb"))
 @app.route("/")
 def home():
     return render_template("index.html")
+@app.route('/form')
+def form():
+    return render_template('form.html')
+
 
 
 @app.route("/predict", methods=["POST"])
@@ -56,7 +60,7 @@ def predict():
     else:
         result = "Customer Will NOT Purchase"
 
-    return render_template("index.html", prediction=result)
+    return render_template("result.html", prediction=result)
 
 
 if __name__ == "__main__":
